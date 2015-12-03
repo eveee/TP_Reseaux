@@ -12,4 +12,9 @@ public class Writer extends BasicAbstractWriter {
 		super (outputStream);
 	}
 
+	public void writeLogin(String name) {
+		super.writeByte((byte)'l');
+		super.writeString(name);
+	}
+
 }

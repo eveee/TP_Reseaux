@@ -26,7 +26,6 @@ public class SessionServer {
 			writer.writeUser(user);
 		}
 	}
-	
 
 	public boolean operate() {
 		try {

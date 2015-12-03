@@ -11,22 +11,33 @@ import fr.ensisa.hassenforder.proximity.model.User;
 public class SessionClient {
 
 	private Socket connection;
-	private Document document;
+	private Reader reader;
+	private Writer writer;
 	
 	public SessionClient(Socket connection) {
 		this.connection = connection;
+		try {
+			this.writer = new Writer(this.connection.getOutputStream());
+			this.reader = new Reader(this.connection.getInputStream());
+		} catch (IOException e) {
+			System.out.println("Erreur lors de l'instanciation des writer et reader du client.");;
+		}
 	}
 
 	public User connect(String name) {
-		if (this.connection == null)
-			document.doConnect(name);
-		return document.getMe();
+		this.writer.writeLogin(name);
+		this.writer.send();
+		User user = this.reader.readUser();
+		user.addPreferences(this.reader.readPreferences());
+		return user;
+		
 	}
 
 	public void disconnect () {
 		this.connection = null;
 	}
 
+	//Methode pour le Refresh : doit demander au serveur de renvoyer Hassen, d'où le type User.
 	public User getState(String name) {
 		try {
 			if (true) throw new IOException ("not yet implemented");

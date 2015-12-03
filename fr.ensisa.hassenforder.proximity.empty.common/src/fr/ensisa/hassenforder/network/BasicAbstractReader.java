@@ -4,6 +4,9 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import fr.ensisa.hassenforder.proximity.model.Mode;
+import fr.ensisa.hassenforder.proximity.model.Preference;
+
 public class BasicAbstractReader {
 
 	protected DataInputStream inputStream;
@@ -65,6 +68,26 @@ public class BasicAbstractReader {
 
 	public Byte getType() {
 		return type;
+	}
+
+	public Mode readMode() {
+		byte mode = this.readByte();
+		if (mode == Protocol.HIDDEN) {
+			return (Mode.HIDDEN);
+		} else if (mode == Protocol.VISIBLE) {
+			return (Mode.VISIBLE);
+		} else {
+			return (Mode.OCCUPIED);
+		}
+	}
+	
+	public Preference[] readPreferences() {
+		int size = this.readInt();
+		Preference preferences[] = new Preference[size];
+		for(int i = 0; i < size; i++) {
+			preferences[i] = new Preference(this.readString(), this.readInt(), this.readBoolean());
+		}
+		return preferences;
 	}
 
 }

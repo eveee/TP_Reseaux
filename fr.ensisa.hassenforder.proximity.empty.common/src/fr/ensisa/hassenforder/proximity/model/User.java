@@ -71,6 +71,18 @@ public class User {
         return preferences;
     }
     
+    public Preference[] getPreferencesTab(){
+    	
+    	Preference preferences[] = new Preference[this.preferences.size()];
+    	
+    	for (int i=0; i<this.preferences.size(); i++){
+    		preferences[i] = this.getPreferenceByPosition(i);
+    	}
+    	
+		return preferences;
+    	
+    }
+    
     public Preference getPreferenceByName (String name) {
     	return getPreferences().get(name);
     }
@@ -93,5 +105,11 @@ public class User {
 
 	public void addPreference(Preference p) {
 		getPreferences().put(p.getName(), p);
+	}
+	
+	public void addPreferences(Preference[] p) {
+		for (int i=0; i<p.length; i++){
+			this.getPreferences().put(p[i].getName(), p[i]);
+		}
 	}
 }

@@ -12,8 +12,6 @@ import fr.ensisa.hassenforder.proximity.model.Mode;
 
 public class Reader extends BasicAbstractReader {
 
-	private SessionClient session;
-	
 	public Reader(InputStream inputStream) {
 		super (inputStream);
 	}
@@ -21,8 +19,12 @@ public class Reader extends BasicAbstractReader {
 	public void receive() {
 		type = readByte();
 		switch (type) {
-			case 'l': ;
+			case 'l': type = Protocol.LOGIN;
 		}
+	}
+
+	public User readUser() {
+		return (new User(super.readString(), super.readInt(), super.readInt(), super.readInt(), super.readMode()));
 	}
 
 }

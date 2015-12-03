@@ -16,7 +16,7 @@ public class Reader extends BasicAbstractReader {
 	public void receive() {
 		type = readByte();
 		switch (type) {
-		case 'l' : type = fr.ensisa.hassenforder.network.Protocol.LOGIN;
+		case 'l' : type = Protocol.LOGIN;
 		}
 	}
 	

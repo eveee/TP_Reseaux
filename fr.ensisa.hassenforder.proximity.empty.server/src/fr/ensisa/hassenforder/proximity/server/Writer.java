@@ -25,5 +25,19 @@ public class Writer extends BasicAbstractWriter {
 		super.writeInt(user.getY());
 		super.writeInt(user.getRadius());
 		super.writeMode(user.getMode());
+		this.writePreferences(user);
+		
 	}
+	
+
+	public void writePreferences(User user){
+		super.writeInt(user.getPreferences().size());
+		for (int i=0; i<user.getPreferences().size(); i++){
+			super.writeString(user.getPreferencesTab()[i].getName());
+			super.writeInt(user.getPreferencesTab()[i].getLevel());
+			super.writeBoolean(user.getPreferencesTab()[i].isVisibility());
+		}
+		
+	}
+	
 }
