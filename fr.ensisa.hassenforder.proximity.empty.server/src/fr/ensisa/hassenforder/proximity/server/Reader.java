@@ -16,7 +16,15 @@ public class Reader extends BasicAbstractReader {
 	public void receive() {
 		type = readByte();
 		switch (type) {
-		case 'l' : type = Protocol.LOGIN;
+		case Protocol.LOGIN : 	
+			type = Protocol.LOGIN;
+			break;
+		case Protocol.MOVE : 
+			type = Protocol.MOVE;
+			break;
+		case Protocol.CHGMODE :
+			type = Protocol.CHGMODE;
+			break;
 		}
 	}
 	

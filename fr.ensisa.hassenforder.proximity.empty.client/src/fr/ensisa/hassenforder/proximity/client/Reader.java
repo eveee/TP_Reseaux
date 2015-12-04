@@ -21,21 +21,32 @@ public class Reader extends BasicAbstractReader {
 
 	public void receive() {
 		type = readByte();
-		this.user = null;
 		switch (type) {
-			case Protocol.KO: break;
-			case Protocol.LOGIN: {
-				this.user = readUser();
-				this.user.addPreferences(this.readPreferences());;
-			}
-			
-			default: break;
+			case Protocol.KO:
+				break;
+			case Protocol.LOGIN: 	
+				this.user = this.readUser();
+				this.user.addPreferences(this.readPreferences());
+				break;
+			case Protocol.MOVE:
+				this.user = this.readUser();
+				break;
+			case Protocol.CHGMODE:
+				this.user = this.readUser();
+				break;
+			default: 
+				break;
 			}
 	}
 	
 
 	public User readUser() {
-		return (new User(super.readString(), super.readInt(), super.readInt(), super.readInt(), super.readMode()));
+		String name = super.readString();
+		int x = super.readInt();
+		int y = super.readInt();
+		int radius = super.readInt();
+		Mode mode = super.readMode();
+		return (new User(name, x, y, radius, mode));
 	}
 	
 	public User getUser(){

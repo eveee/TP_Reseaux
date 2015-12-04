@@ -97,12 +97,12 @@ public class Document {
     	return true;
     }
 
-    public User doMove(String name, int x, int y) {
+    public boolean doMove(String name, int x, int y) {
     	User user = users.get(name);
-    	if (user == null) return user;
+    	if (user == null) return false;
     	user.setX(x);
     	user.setY(y);
-    	return user;
+    	return true;
     }
 
     public boolean doChangeRadius(String name, int radius) {
@@ -128,6 +128,10 @@ public class Document {
     	if (preference == null) return false;
     	preference.setVisibility(value);
     	return true;
+    }
+    
+    public User getUserByName(String name){
+    	return users.get(name);
     }
 	
 }

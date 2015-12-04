@@ -18,5 +18,7 @@ public interface Protocol {
 	
 	public static final byte MOVE = 'm';
 	
+	public static final byte CHGMODE = 'c';
+	
 
 }

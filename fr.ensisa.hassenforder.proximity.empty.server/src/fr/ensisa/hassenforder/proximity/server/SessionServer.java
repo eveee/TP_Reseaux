@@ -5,6 +5,7 @@ import java.net.Socket;
 import java.util.List;
 
 import fr.ensisa.hassenforder.network.Protocol;
+import fr.ensisa.hassenforder.proximity.model.Mode;
 import fr.ensisa.hassenforder.proximity.model.User;
 
 public class SessionServer {
@@ -28,17 +29,26 @@ public class SessionServer {
 		}
 	}
 	
-	public void move(Writer writer, String name, int dx, int dy){
-		User user;
-		if((user = document.doMove(name, dx, dy)) == null){
+	public void move(Writer writer, String name, int x, int y){
+		if(!this.document.doMove(name, x, y)){
 			writer.writeKO();
 		}
 		else {
 			writer.writeType(Protocol.MOVE);
-			writer.writeUser(user);
+			writer.writeUser(this.document.getUserByName(name));
 		}
 	}
-
+	
+	public void chgmode(Writer writer, String name, Mode mode){
+		if(!this.document.doChangeMode(name, mode)){
+			writer.writeKO();
+		}
+		else {
+			writer.writeType(Protocol.MOVE);
+			writer.writeUser(this.document.getUserByName(name));
+		}
+	}
+	
 	public boolean operate() {
 		try {
 			Writer writer = new Writer(connection.getOutputStream());
@@ -46,17 +56,27 @@ public class SessionServer {
 			reader.receive();
 			switch(reader.getType()) {
 				case 0 : return false; // socket closed
-				case Protocol.LOGIN :{
-					this.login(writer, reader.readName());
+				case Protocol.LOGIN :
+					String n1 = reader.readName();
+					this.login(writer, n1);
 					writer.send();
 					return true;
-				}
-				case Protocol.MOVE :{
-					this.move(writer, reader.readName(), reader.readInt(), reader.readInt());
+
+				case Protocol.MOVE :
+					String n2 = reader.readName();
+					int x = reader.readInt();
+					int y = reader.readInt();
+					this.move(writer, n2, x, y);
 					writer.send();
 					return true;
 					
-				}
+				case Protocol.CHGMODE :
+					String n3 = reader.readName();
+					Mode m = reader.readMode();
+					this.chgmode(writer, n3, m);
+					writer.send();
+					return true;
+					
 				default: return false; // connection jammed
 			}
 		} catch (IOException e) {

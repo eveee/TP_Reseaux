@@ -11,32 +11,23 @@ import fr.ensisa.hassenforder.proximity.model.User;
 public class SessionClient {
 
 	private Socket connection;
-	private Reader reader;
-	private Writer writer;
 	
 	public SessionClient(Socket connection) {
 		this.connection = connection;
-		try {
-			this.writer = new Writer(this.connection.getOutputStream());
-			this.reader = new Reader(this.connection.getInputStream());
-		} catch (IOException e) {
-			System.out.println("Erreur lors de l'instanciation des writer et reader du client.");;
-		}
 	}
 
-	public User connect(String name) {
-		this.writer.writeLogin(name);
-		this.writer.send();
-		this.reader.receive();
-		return this.reader.getUser();
-		
+	public User connect(String name) throws IOException {
+		Writer writer = new Writer(this.connection.getOutputStream());
+		Reader reader = new Reader(this.connection.getInputStream());
+		writer.writeLogin(name);
+		writer.send();
+		reader.receive();
+		return reader.getUser();
 	}
 
 	public void disconnect () {
 		this.connection = null;
-		
 	}
-
 	
 	public User getState(String name) {
 		try {
@@ -56,22 +47,22 @@ public class SessionClient {
 		}
 	}
 
-	public boolean changeMode (String name, Mode mode) {
-		try {
-			if (true) throw new IOException ("not yet implemented");
-			return false;
-		} catch (IOException e) {
-			return false;
-		}
+	public boolean changeMode (String name, Mode mode) throws IOException {
+		Writer writer = new Writer(this.connection.getOutputStream());
+		Reader reader = new Reader(this.connection.getInputStream());
+		writer.writeChgMode(name, mode);
+		writer.send();
+		reader.receive();
+		return true;
 	}
 
-	public boolean move(String name, int x, int y) {
-		try {
-			if (true) throw new IOException ("not yet implemented");
-			return false;
-		} catch (IOException e) {
-			return false;
-		}
+	public boolean move(String name, int x, int y) throws IOException {
+		Writer writer = new Writer(this.connection.getOutputStream());
+		Reader reader = new Reader(this.connection.getInputStream());
+		writer.writeMove(name, x, y);
+		writer.send();
+		reader.receive();
+		return true;
 	}
 
 	public boolean changeRadius(String name, int radius) {

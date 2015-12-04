@@ -52,7 +52,6 @@ public class Document {
     	passThrough ("doDisconnect");
 		if (socket == null) return false;
 		if (session == null) return false;
-		//me = null;
 		session.disconnect();
 		session = null;
 		try {
@@ -75,12 +74,12 @@ public class Document {
     	return others;
     }
 
-    public boolean doChangeMode (Mode mode) {
+    public boolean doChangeMode (Mode mode) throws IOException {
     	passThrough("visibility changed "+mode);
     	return session.changeMode (me.getName(), mode);
     }
 
-    public boolean doMove(int x, int y) {
+    public boolean doMove(int x, int y) throws IOException {
     	passThrough("move "+x+", "+y);
     	return session.move(me.getName(), x, y);
     }

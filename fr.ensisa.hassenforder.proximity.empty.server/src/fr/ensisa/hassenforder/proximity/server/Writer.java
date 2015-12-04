@@ -43,4 +43,8 @@ public class Writer extends BasicAbstractWriter {
 		super.writeByte(b);
 	}
 	
+	public void writeInt(int v){
+		super.writeInt(v);
+	}
+	
 }

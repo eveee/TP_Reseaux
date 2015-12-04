@@ -17,4 +17,17 @@ public class Writer extends BasicAbstractWriter {
 		super.writeString(name);
 	}
 
+	public void writeMove(String name, int x, int y) {
+		super.writeByte(Protocol.MOVE);
+		super.writeString(name);
+		super.writeInt(x);
+		super.writeInt(y);
+	}
+
+	public void writeChgMode(String name, Mode mode) {
+		super.writeByte(Protocol.CHGMODE);
+		super.writeString(name);
+		super.writeMode(mode);
+	}
+	
 }
