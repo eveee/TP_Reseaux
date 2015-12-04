@@ -97,12 +97,12 @@ public class Document {
     	return true;
     }
 
-    public boolean doMove(String name, int x, int y) {
+    public User doMove(String name, int x, int y) {
     	User user = users.get(name);
-    	if (user == null) return false;
+    	if (user == null) return user;
     	user.setX(x);
     	user.setY(y);
-    	return true;
+    	return user;
     }
 
     public boolean doChangeRadius(String name, int radius) {

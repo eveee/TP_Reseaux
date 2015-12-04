@@ -16,7 +16,7 @@ public class Writer extends BasicAbstractWriter {
 	}
 
 	public void writeKO(){
-		super.writeBoolean(fr.ensisa.hassenforder.network.Protocol.KO);
+		super.writeByte(Protocol.KO);
 	}
 	
 	public void writeUser(User user){
@@ -29,7 +29,6 @@ public class Writer extends BasicAbstractWriter {
 		
 	}
 	
-
 	public void writePreferences(User user){
 		super.writeInt(user.getPreferences().size());
 		for (int i=0; i<user.getPreferences().size(); i++){
@@ -38,6 +37,10 @@ public class Writer extends BasicAbstractWriter {
 			super.writeBoolean(user.getPreferencesTab()[i].isVisibility());
 		}
 		
+	}
+	
+	public void writeType(byte b){
+		super.writeByte(b);
 	}
 	
 }

@@ -10,7 +10,7 @@ import fr.ensisa.hassenforder.proximity.model.Preference;
 public class BasicAbstractReader {
 
 	protected DataInputStream inputStream;
-	protected Byte type;
+	protected byte type;
 
 	public BasicAbstractReader(InputStream inputStream2) {
 		this.inputStream = new DataInputStream (inputStream2);
@@ -58,7 +58,7 @@ public class BasicAbstractReader {
 		}
 	}
 	
-	protected Byte readByte() {
+	protected byte readByte() {
 		try {
 			return inputStream.readByte();
 		} catch (IOException e) {

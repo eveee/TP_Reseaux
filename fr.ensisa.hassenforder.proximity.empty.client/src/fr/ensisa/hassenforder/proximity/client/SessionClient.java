@@ -27,17 +27,17 @@ public class SessionClient {
 	public User connect(String name) {
 		this.writer.writeLogin(name);
 		this.writer.send();
-		User user = this.reader.readUser();
-		user.addPreferences(this.reader.readPreferences());
-		return user;
+		this.reader.receive();
+		return this.reader.getUser();
 		
 	}
 
 	public void disconnect () {
 		this.connection = null;
+		
 	}
 
-	//Methode pour le Refresh : doit demander au serveur de renvoyer Hassen, d'où le type User.
+	
 	public User getState(String name) {
 		try {
 			if (true) throw new IOException ("not yet implemented");

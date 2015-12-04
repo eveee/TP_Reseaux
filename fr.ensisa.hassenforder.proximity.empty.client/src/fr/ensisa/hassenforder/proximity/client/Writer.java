@@ -13,7 +13,7 @@ public class Writer extends BasicAbstractWriter {
 	}
 
 	public void writeLogin(String name) {
-		super.writeByte((byte)'l');
+		super.writeByte(Protocol.LOGIN);
 		super.writeString(name);
 	}
 

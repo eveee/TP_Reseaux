@@ -20,7 +20,11 @@ public class Reader extends BasicAbstractReader {
 		}
 	}
 	
-	protected String readName(){
+	public String readName(){
 		return this.readString();
+	}
+	
+	public int readInt(){
+		return super.readInt();
 	}
 }

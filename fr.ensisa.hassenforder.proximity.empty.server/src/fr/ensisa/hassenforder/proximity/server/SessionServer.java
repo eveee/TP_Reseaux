@@ -23,6 +23,18 @@ public class SessionServer {
 			writer.writeKO();
 		}
 		else {
+			writer.writeType(Protocol.LOGIN);
+			writer.writeUser(user);
+		}
+	}
+	
+	public void move(Writer writer, String name, int dx, int dy){
+		User user;
+		if((user = document.doMove(name, dx, dy)) == null){
+			writer.writeKO();
+		}
+		else {
+			writer.writeType(Protocol.MOVE);
 			writer.writeUser(user);
 		}
 	}
@@ -38,6 +50,12 @@ public class SessionServer {
 					this.login(writer, reader.readName());
 					writer.send();
 					return true;
+				}
+				case Protocol.MOVE :{
+					this.move(writer, reader.readName(), reader.readInt(), reader.readInt());
+					writer.send();
+					return true;
+					
 				}
 				default: return false; // connection jammed
 			}

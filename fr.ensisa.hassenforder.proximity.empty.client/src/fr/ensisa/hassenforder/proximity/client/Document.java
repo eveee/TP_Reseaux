@@ -52,6 +52,7 @@ public class Document {
     	passThrough ("doDisconnect");
 		if (socket == null) return false;
 		if (session == null) return false;
+		//me = null;
 		session.disconnect();
 		session = null;
 		try {
