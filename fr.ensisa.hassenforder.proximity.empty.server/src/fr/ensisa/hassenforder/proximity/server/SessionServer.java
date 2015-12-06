@@ -104,7 +104,6 @@ public class SessionServer {
 			}
 	}
 	
-	
 	public boolean operate() {
 		try {
 			Writer writer = new Writer(connection.getOutputStream());
