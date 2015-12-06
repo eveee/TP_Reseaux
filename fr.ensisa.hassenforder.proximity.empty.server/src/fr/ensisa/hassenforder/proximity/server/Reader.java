@@ -28,6 +28,9 @@ public class Reader extends BasicAbstractReader {
 		case Protocol.CHGRADIUS :
 			type = Protocol.CHGRADIUS;
 			break;
+		case Protocol.CHGPREFLEVEL :
+			type = Protocol.CHGPREFLEVEL;
+			break;
 		}
 	}
 	

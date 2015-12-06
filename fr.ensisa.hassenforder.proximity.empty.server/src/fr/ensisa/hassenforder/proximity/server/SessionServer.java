@@ -59,6 +59,16 @@ public class SessionServer {
 		}
 	}
 	
+	public void chgpreflevel(Writer writer, String name, String preference_name, int level){
+		if(!this.document.doChangePreferenceLevel(name, preference_name, level)){
+			writer.writeKO();
+		}
+		else {
+			writer.writeType(Protocol.CHGPREFLEVEL);
+			writer.writeUser(this.document.getUserByName(name));
+		}
+	}
+	
 	public boolean operate() {
 		try {
 			Writer writer = new Writer(connection.getOutputStream());
@@ -91,6 +101,14 @@ public class SessionServer {
 					String n4 = reader.readName();
 					int rad = reader.readInt();
 					this.chgradius(writer, n4, rad);
+					writer.send();
+					return true;
+					
+				case Protocol.CHGPREFLEVEL :
+					String n5 = reader.readName();
+					String preference_name = reader.readName();
+					int value = reader.readInt();
+					this.chgpreflevel(writer, n5, preference_name, value);
 					writer.send();
 					return true;
 					
