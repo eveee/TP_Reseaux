@@ -27,5 +27,7 @@ public interface Protocol {
 	public static final byte CHGPREFVISIBILITY = 'v';
 
 	public static final byte FINDNEAR = 'f';
+	
+	public static final byte GETSTATE = 's';
 
 }

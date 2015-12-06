@@ -54,5 +54,10 @@ public class Writer extends BasicAbstractWriter {
 		super.writeByte(Protocol.FINDNEAR);
 		super.writeString(name);
 	}
+
+	public void writeGetState(String name) {
+		super.writeByte(Protocol.GETSTATE);
+		super.writeString(name);
+	}
 	
 }

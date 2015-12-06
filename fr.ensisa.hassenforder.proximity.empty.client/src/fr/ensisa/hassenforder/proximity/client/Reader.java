@@ -13,6 +13,7 @@ import fr.ensisa.hassenforder.proximity.model.Mode;
 public class Reader extends BasicAbstractReader {
 	
 	private User user;
+	private List<User> users;
 
 	public Reader(InputStream inputStream) {
 		super (inputStream);
@@ -44,7 +45,12 @@ public class Reader extends BasicAbstractReader {
 				this.user = this.readUser();
 				break;
 			case Protocol.FINDNEAR:
-				
+				int size = super.readInt();
+				for(int i = 0; i < size; i++) {
+					this.users.add(this.readUser());
+				}
+				break;
+			case Protocol.GETSTATE:
 				break;
 			default: 
 				break;
@@ -61,8 +67,12 @@ public class Reader extends BasicAbstractReader {
 		return (new User(name, x, y, radius, mode));
 	}
 	
-	public User getUser(){
+	public User getUser() {
 		return this.user;
+	}
+	
+	public List<User> getUsers() {
+		return this.users;
 	}
 
 }

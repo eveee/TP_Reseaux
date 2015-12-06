@@ -29,13 +29,13 @@ public class SessionClient {
 		this.connection = null;
 	}
 	
-	public User getState(String name) {
-		try {
-			if (true) throw new IOException ("not yet implemented");
-			return null;
-		} catch (IOException e) {
-			return null;
-		}
+	public User getState(String name) throws IOException {
+		Writer writer = new Writer(this.connection.getOutputStream());
+		Reader reader = new Reader(this.connection.getInputStream());
+		writer.writeGetState(name);
+		writer.send();
+		reader.receive();
+		return reader.getUser();
 	}
 
 	public List<User> findNear(String name) throws IOException {
@@ -44,7 +44,7 @@ public class SessionClient {
 		writer.writeFind(name);
 		writer.send();
 		reader.receive();
-		return null;
+		return reader.getUsers();
 	}
 
 	public boolean changeMode (String name, Mode mode) throws IOException {
