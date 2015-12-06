@@ -29,5 +29,11 @@ public class Writer extends BasicAbstractWriter {
 		super.writeString(name);
 		super.writeMode(mode);
 	}
+
+	public void writeChgRad(String name, int radius) {
+		super.writeByte(Protocol.CHGRADIUS);
+		super.writeString(name);
+		super.writeInt(radius);
+	}
 	
 }

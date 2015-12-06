@@ -34,6 +34,9 @@ public class Reader extends BasicAbstractReader {
 			case Protocol.CHGMODE:
 				this.user = this.readUser();
 				break;
+			case Protocol.CHGRADIUS:
+				this.user = this.readUser();
+				break;
 			default: 
 				break;
 			}

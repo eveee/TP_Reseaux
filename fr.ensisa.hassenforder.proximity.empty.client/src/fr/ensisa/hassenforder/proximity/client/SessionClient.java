@@ -65,13 +65,13 @@ public class SessionClient {
 		return true;
 	}
 
-	public boolean changeRadius(String name, int radius) {
-		try {
-			if (true) throw new IOException ("not yet implemented");
-			return false;
-		} catch (IOException e) {
-			return false;
-		}
+	public boolean changeRadius(String name, int radius) throws IOException {
+		Writer writer = new Writer(this.connection.getOutputStream());
+		Reader reader = new Reader(this.connection.getInputStream());
+		writer.writeChgRad(name, radius);
+		writer.send();
+		reader.receive();
+		return true;
 	}
 
 	public boolean changePreferenceLevel(String name, String preference, int value) {

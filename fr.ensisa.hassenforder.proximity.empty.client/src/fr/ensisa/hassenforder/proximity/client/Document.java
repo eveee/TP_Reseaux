@@ -84,7 +84,7 @@ public class Document {
     	return session.move(me.getName(), x, y);
     }
 
-    public boolean doChangeRadius(int radius) {
+    public boolean doChangeRadius(int radius) throws IOException {
     	passThrough("radius "+radius);
     	return session.changeRadius(me.getName(), radius);
     }
