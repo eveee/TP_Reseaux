@@ -49,6 +49,16 @@ public class SessionServer {
 		}
 	}
 	
+	public void chgradius(Writer writer, String name, int radius){
+		if(!this.document.doChangeRadius(name, radius)){
+			writer.writeKO();
+		}
+		else {
+			writer.writeType(Protocol.CHGRADIUS);
+			writer.writeUser(this.document.getUserByName(name));
+		}
+	}
+	
 	public boolean operate() {
 		try {
 			Writer writer = new Writer(connection.getOutputStream());
@@ -74,6 +84,13 @@ public class SessionServer {
 					String n3 = reader.readName();
 					Mode m = reader.readMode();
 					this.chgmode(writer, n3, m);
+					writer.send();
+					return true;
+				
+				case Protocol.CHGRADIUS :
+					String n4 = reader.readName();
+					int rad = reader.readInt();
+					this.chgradius(writer, n4, rad);
 					writer.send();
 					return true;
 					

@@ -25,6 +25,9 @@ public class Reader extends BasicAbstractReader {
 		case Protocol.CHGMODE :
 			type = Protocol.CHGMODE;
 			break;
+		case Protocol.CHGRADIUS :
+			type = Protocol.CHGRADIUS;
+			break;
 		}
 	}
 	

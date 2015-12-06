@@ -20,5 +20,7 @@ public interface Protocol {
 	
 	public static final byte CHGMODE = 'c';
 	
+	public static final byte CHGRADIUS = 'r';
+	
 
 }
