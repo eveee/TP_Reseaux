@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.List;
 
-import fr.ensisa.hassenforder.network.Protocol;
 import fr.ensisa.hassenforder.proximity.model.Mode;
 import fr.ensisa.hassenforder.proximity.model.User;
 

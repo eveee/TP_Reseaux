@@ -16,18 +16,28 @@ public class Writer extends BasicAbstractWriter {
 		super.writeByte(Protocol.LOGIN);
 		super.writeString(name);
 	}
+	
+	public void writeGetState(String name) {
+		super.writeByte(Protocol.GETSTATE);
+		super.writeString(name);
+	}
 
+	public void writeFind(String name) {
+		super.writeByte(Protocol.FINDNEAR);
+		super.writeString(name);
+	}
+	
+	public void writeChgMode(String name, Mode mode) {
+		super.writeByte(Protocol.CHGMODE);
+		super.writeString(name);
+		super.writeMode(mode);
+	}
+	
 	public void writeMove(String name, int x, int y) {
 		super.writeByte(Protocol.MOVE);
 		super.writeString(name);
 		super.writeInt(x);
 		super.writeInt(y);
-	}
-
-	public void writeChgMode(String name, Mode mode) {
-		super.writeByte(Protocol.CHGMODE);
-		super.writeString(name);
-		super.writeMode(mode);
 	}
 
 	public void writeChgRad(String name, int radius) {
@@ -48,16 +58,6 @@ public class Writer extends BasicAbstractWriter {
 		super.writeString(name);
 		super.writeString(preference);
 		super.writeBoolean(value);
-	}
-
-	public void writeFind(String name) {
-		super.writeByte(Protocol.FINDNEAR);
-		super.writeString(name);
-	}
-
-	public void writeGetState(String name) {
-		super.writeByte(Protocol.GETSTATE);
-		super.writeString(name);
-	}
+	}	
 	
 }

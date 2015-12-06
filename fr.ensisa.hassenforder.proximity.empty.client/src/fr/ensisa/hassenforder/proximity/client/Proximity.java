@@ -12,8 +12,6 @@ import fr.ensisa.hassenforder.proximity.model.Preference;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
-import java.util.Collection;
-import java.util.Iterator;
 
 /**
  *
