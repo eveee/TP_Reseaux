@@ -35,5 +35,24 @@ public class Writer extends BasicAbstractWriter {
 		super.writeString(name);
 		super.writeInt(radius);
 	}
+
+	public void writeChgPrefLevel(String name, String preference, int value) {
+		super.writeByte(Protocol.CHGPREFLEVEL);
+		super.writeString(name);
+		super.writeString(preference);
+		super.writeInt(value);
+	}
+
+	public void writeChgPrefVisibility(String name, String preference, boolean value) {
+		super.writeByte(Protocol.CHGPREFVISIBILITY);
+		super.writeString(name);
+		super.writeString(preference);
+		super.writeBoolean(value);
+	}
+
+	public void writeFind(String name) {
+		super.writeByte(Protocol.FINDNEAR);
+		super.writeString(name);
+	}
 	
 }

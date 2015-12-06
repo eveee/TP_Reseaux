@@ -68,7 +68,7 @@ public class Document {
     	return me;
     }
 
-    public List<User> doFind() {
+    public List<User> doFind() throws IOException {
     	passThrough("find");
     	others = session.findNear(me.getName());
     	return others;
@@ -89,7 +89,7 @@ public class Document {
     	return session.changeRadius(me.getName(), radius);
     }
 
-    public boolean doChangePreferenceLevel(int id, int row, int value) {
+    public boolean doChangePreferenceLevel(int id, int row, int value) throws IOException {
     	passThrough("ID "+id+" level changed to "+value+" for "+row);
     	if (id != -1) return false;
     	if (me == null) return false;
@@ -100,7 +100,7 @@ public class Document {
     	return result;
     }
 
-    public boolean doChangePreferenceVisibility(int id, int row, boolean value) {
+    public boolean doChangePreferenceVisibility(int id, int row, boolean value) throws IOException {
     	passThrough("ID "+id+" visibility changed to "+value+" for "+row);
     	if (id != -1) return false;
     	if (me == null) return false;
