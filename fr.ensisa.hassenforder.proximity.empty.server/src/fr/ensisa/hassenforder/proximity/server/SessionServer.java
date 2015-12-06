@@ -93,6 +93,17 @@ public class SessionServer {
 		}
 	}
 	
+	public void getstate(Writer writer, String name){
+		User user;
+		if((user = document.doGetState(name)) == null){
+			writer.writeKO();
+		}
+		else {
+			writer.writeType(Protocol.GETSTATE);
+			writer.writeUser(user);
+			}
+	}
+	
 	
 	public boolean operate() {
 		try {
@@ -148,6 +159,12 @@ public class SessionServer {
 				case Protocol.FINDNEAR :
 					String n7 = reader.readName();
 					this.findnear(writer, n7);
+					writer.send();
+					return true;
+					
+				case Protocol.GETSTATE :
+					String n8 = reader.readName();
+					this.getstate(writer, n8);
 					writer.send();
 					return true;
 					

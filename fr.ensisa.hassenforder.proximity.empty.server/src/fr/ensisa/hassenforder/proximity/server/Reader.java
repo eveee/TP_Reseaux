@@ -37,6 +37,9 @@ public class Reader extends BasicAbstractReader {
 		case Protocol.FINDNEAR :
 			type = Protocol.FINDNEAR;
 			break;
+		case Protocol.GETSTATE :
+			type = Protocol.GETSTATE;
+			break;
 
 		}
 	}
