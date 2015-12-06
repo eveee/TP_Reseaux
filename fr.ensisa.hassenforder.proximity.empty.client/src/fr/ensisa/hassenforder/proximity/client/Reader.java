@@ -37,6 +37,15 @@ public class Reader extends BasicAbstractReader {
 			case Protocol.CHGRADIUS:
 				this.user = this.readUser();
 				break;
+			case Protocol.CHGPREFLEVEL:
+				this.user = this.readUser();
+				break;
+			case Protocol.CHGPREFVISIBILITY:
+				this.user = this.readUser();
+				break;
+			case Protocol.FINDNEAR:
+				
+				break;
 			default: 
 				break;
 			}

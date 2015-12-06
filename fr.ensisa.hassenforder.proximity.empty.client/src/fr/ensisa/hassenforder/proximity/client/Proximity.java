@@ -11,6 +11,7 @@ import fr.ensisa.hassenforder.proximity.model.Preference;
 
 import java.awt.Color;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -170,8 +171,18 @@ public class Proximity extends javax.swing.JFrame {
             if (preference == null) return ;
             switch (colIndex) {
             case 0 : break;
-            case 1 : document.doChangePreferenceLevel(id, rowIndex, ((Integer)value).intValue()); break;
-            case 2 : document.doChangePreferenceVisibility(id, rowIndex, ((Boolean)value).booleanValue()); break;
+            case 1 : try {
+					document.doChangePreferenceLevel(id, rowIndex, ((Integer)value).intValue());
+				} catch (IOException e) {
+					System.out.println("Error while changing preference level");
+					e.printStackTrace();
+				} break;
+            case 2 : try {
+					document.doChangePreferenceVisibility(id, rowIndex, ((Boolean)value).booleanValue());
+				} catch (IOException e) {
+					System.out.println("Error while changing preference visibility");
+					e.printStackTrace();
+				} break;
             default : return;
             }
             my_preferences.fireTableDataChanged();
@@ -297,7 +308,11 @@ public class Proximity extends javax.swing.JFrame {
         jFind.setText("find");
         jFind.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jFindActionPerformed(evt);
+                try {
+					jFindActionPerformed(evt);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
             }
         });
 
@@ -578,7 +593,7 @@ public class Proximity extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jConnectActionPerformed
 
-    private void jFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFindActionPerformed
+    private void jFindActionPerformed(java.awt.event.ActionEvent evt) throws IOException {//GEN-FIRST:event_jFindActionPerformed
         document.doFind();
         jPanel3.validate();
         jPanel3.repaint();

@@ -38,13 +38,13 @@ public class SessionClient {
 		}
 	}
 
-	public List<User> findNear(String name) {
-		try {
-			if (true) throw new IOException ("not yet implemented");
-			return null;
-		} catch (IOException e) {
-			return null;
-		}
+	public List<User> findNear(String name) throws IOException {
+		Writer writer = new Writer(this.connection.getOutputStream());
+		Reader reader = new Reader(this.connection.getInputStream());
+		writer.writeFind(name);
+		writer.send();
+		reader.receive();
+		return null;
 	}
 
 	public boolean changeMode (String name, Mode mode) throws IOException {
@@ -74,22 +74,22 @@ public class SessionClient {
 		return true;
 	}
 
-	public boolean changePreferenceLevel(String name, String preference, int value) {
-		try {
-			if (true) throw new IOException ("not yet implemented");
-			return false;
-		} catch (IOException e) {
-			return false;
-		}
+	public boolean changePreferenceLevel(String name, String preference, int value) throws IOException {
+		Writer writer = new Writer(this.connection.getOutputStream());
+		Reader reader = new Reader(this.connection.getInputStream());
+		writer.writeChgPrefLevel(name, preference, value);
+		writer.send();
+		reader.receive();
+		return true;
 	}
 
-	public boolean changePreferenceVisibility(String name, String preference, boolean value) {
-		try {
-			if (true) throw new IOException ("not yet implemented");
-			return false;
-		} catch (IOException e) {
-			return false;
-		}
+	public boolean changePreferenceVisibility(String name, String preference, boolean value) throws IOException {
+		Writer writer = new Writer(this.connection.getOutputStream());
+		Reader reader = new Reader(this.connection.getInputStream());
+		writer.writeChgPrefVisibility(name, preference, value);
+		writer.send();
+		reader.receive();
+		return true;
 	}
 
 }
