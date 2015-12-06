@@ -294,7 +294,11 @@ public class Proximity extends javax.swing.JFrame {
         jRefresh.setText("refresh");
         jRefresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRefreshActionPerformed(evt);
+                try {
+					jRefreshActionPerformed(evt);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
             }
         });
 
@@ -600,7 +604,7 @@ public class Proximity extends javax.swing.JFrame {
         jComment.setText("find done");
     }//GEN-LAST:event_jFindActionPerformed
 
-    private void jRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRefreshActionPerformed
+    private void jRefreshActionPerformed(java.awt.event.ActionEvent evt) throws IOException {//GEN-FIRST:event_jRefreshActionPerformed
         document.doGetState();
         updateUser (document.getMe());
         jComment.setText("state done");
