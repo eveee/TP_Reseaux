@@ -64,7 +64,7 @@ public class Document {
 
     public User doGetState() throws IOException {
     	passThrough("getState");
-    	me = session.getState (me.getName());
+    	me = session.getState(me.getName());
     	return me;
     }
 

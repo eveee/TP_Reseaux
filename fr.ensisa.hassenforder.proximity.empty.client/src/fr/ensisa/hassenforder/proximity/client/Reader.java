@@ -1,6 +1,7 @@
 package fr.ensisa.hassenforder.proximity.client;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import fr.ensisa.hassenforder.network.BasicAbstractReader;
@@ -16,6 +17,7 @@ public class Reader extends BasicAbstractReader {
 	public Reader(InputStream inputStream) {
 		super (inputStream);
 		this.user = null;
+		this.users = new ArrayList<User>();
 	}
 	
 	public User readUser() {
@@ -24,7 +26,9 @@ public class Reader extends BasicAbstractReader {
 		int y = super.readInt();
 		int radius = super.readInt();
 		Mode mode = super.readMode();
-		return (new User(name, x, y, radius, mode));
+		User user = new User(name, x, y, radius, mode);
+		user.addPreferences(this.readPreferences());
+		return (user);
 	}
 	
 	public User getUser() {
@@ -40,12 +44,12 @@ public class Reader extends BasicAbstractReader {
 		switch (type) {
 			case Protocol.LOGIN: 	
 				this.user = this.readUser();
-				this.user.addPreferences(this.readPreferences());
 				break;
 			case Protocol.GETSTATE:
 				this.user = this.readUser();
 				break;
 			case Protocol.FINDNEAR:
+				this.users.clear();
 				int size = super.readInt();
 				for(int i = 0; i < size; i++) {
 					this.users.add(this.readUser());
