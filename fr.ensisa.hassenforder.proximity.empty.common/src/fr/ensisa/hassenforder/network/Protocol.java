@@ -21,7 +21,7 @@ public interface Protocol {
 	public static final byte CHGMODE = 'c';
 	
 	public static final byte CHGRADIUS = 'r';
-
+	
 	public static final byte CHGPREFLEVEL = 'p';
 
 	public static final byte CHGPREFVISIBILITY = 'v';

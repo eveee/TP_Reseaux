@@ -59,6 +59,41 @@ public class SessionServer {
 		}
 	}
 	
+	public void chgpreflevel(Writer writer, String name, String preference_name, int level){
+		if(!this.document.doChangePreferenceLevel(name, preference_name, level)){
+			writer.writeKO();
+		}
+		else {
+			writer.writeType(Protocol.CHGPREFLEVEL);
+			writer.writeUser(this.document.getUserByName(name));
+		}
+	}
+	
+	public void chgprefvisibility(Writer writer, String name, String preference_name, boolean visibility){
+		if(!this.document.doChangePreferenceVisibility(name, preference_name, visibility)){
+			writer.writeKO();
+		}
+		else {
+			writer.writeType(Protocol.CHGPREFVISIBILITY);
+			writer.writeUser(this.document.getUserByName(name));
+		}
+	}
+	
+	public void findnear(Writer writer, String name){
+		List<User> users;
+		if((users = document.doFind(name)) == null){
+			writer.writeKO();
+		}
+		else {
+			writer.writeType(Protocol.FINDNEAR);
+			writer.writeInt(users.size());
+			for(int i = 0; i < users.size(); i++){
+				writer.writeUser(users.get(i));
+			}
+		}
+	}
+	
+	
 	public boolean operate() {
 		try {
 			Writer writer = new Writer(connection.getOutputStream());
@@ -91,6 +126,28 @@ public class SessionServer {
 					String n4 = reader.readName();
 					int rad = reader.readInt();
 					this.chgradius(writer, n4, rad);
+					writer.send();
+					return true;
+					
+				case Protocol.CHGPREFLEVEL :
+					String n5 = reader.readName();
+					String pn1 = reader.readName();
+					int value = reader.readInt();
+					this.chgpreflevel(writer, n5, pn1, value);
+					writer.send();
+					return true;
+					
+				case Protocol.CHGPREFVISIBILITY :
+					String n6 = reader.readName();
+					String pn2 = reader.readName();
+					boolean visibility = reader.readVisibility();
+					this.chgprefvisibility(writer, n6, pn2, visibility);
+					writer.send();
+					return true;
+				
+				case Protocol.FINDNEAR :
+					String n7 = reader.readName();
+					this.findnear(writer, n7);
 					writer.send();
 					return true;
 					

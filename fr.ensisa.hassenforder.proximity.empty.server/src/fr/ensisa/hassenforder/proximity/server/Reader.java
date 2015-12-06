@@ -28,6 +28,16 @@ public class Reader extends BasicAbstractReader {
 		case Protocol.CHGRADIUS :
 			type = Protocol.CHGRADIUS;
 			break;
+		case Protocol.CHGPREFLEVEL :
+			type = Protocol.CHGPREFLEVEL;
+			break;
+		case Protocol.CHGPREFVISIBILITY :
+			type = Protocol.CHGPREFVISIBILITY;
+			break;
+		case Protocol.FINDNEAR :
+			type = Protocol.FINDNEAR;
+			break;
+
 		}
 	}
 	
@@ -37,5 +47,9 @@ public class Reader extends BasicAbstractReader {
 	
 	public int readInt(){
 		return super.readInt();
+	}
+	
+	public boolean readVisibility(){
+		return super.readBoolean();
 	}
 }
